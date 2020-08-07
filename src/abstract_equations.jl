@@ -1,3 +1,10 @@
+
+export AbstractSystem, AbstractEquation
+export PDESystem
+
+abstract type AbstractSystem end
+abstract type AbstractEquation end
+
 struct PDEEquation{TT <: AbstractExpression, ET <: AbstractExpression} <: AbstractEquation
     lhs::TT
     rhs::ET

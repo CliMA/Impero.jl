@@ -1,49 +1,23 @@
+
 # Define Operators (perhaps overload getproperty eventually?)
 import Base.show
-import Base: +, *, -, √, tanh, sin, cos, tan, ^
 
-# Unary Operators, (name, symbol)
-unary_operators = []
-push!(unary_operators, ["Negative", "-"])
-push!(unary_operators, ["SquareRoot", "√"])
-push!(unary_operators, ["Tanh", "tanh"])
-push!(unary_operators, ["Sin", "sin"])
-push!(unary_operators, ["Cos", "cos"])
-push!(unary_operators, ["Tan", "tan"])
 
-# Binary Operators, (name, symbol)
-binary_operators = []
-push!(binary_operators, ["Add", "+"])
-push!(binary_operators, ["Multiply", "*"])
-push!(binary_operators, ["Exponentiation", "^"])
+export AbstractExpression
 
-nary_operators = []
-push!(nary_operators, ["Sum", "+"])
-push!(nary_operators, ["Multiplicative_Sum", "*"])
-
-# Define Abstract Types
-abstract type AbstractEquation end
-abstract type AbstractSystem end
+# Define abstract base type
 abstract type AbstractExpression end
-abstract type AbstractOperation <: AbstractExpression end
-abstract type UnaryOperation  <: AbstractOperation end
-abstract type BinaryOperation <: AbstractOperation end
-abstract type NaryOperation <: AbstractOperation end
-abstract type AbstractData <: AbstractExpression end
-abstract type AbstractMetaData <: AbstractExpression end
-
 
 # Define Algebraic Operators
-include(pwd() * "/symbolics/abstract_operations.jl")
+include("abstract_operations.jl")
 # Define Domains
-include(pwd() * "/symbolics/abstract_domains.jl")
+include("abstract_domains.jl")
 # Define Fields
-include(pwd() * "/symbolics/abstract_fields.jl")
+include("abstract_fields.jl")
 # Define Data
-include(pwd() * "/symbolics/abstract_data.jl")
+include("abstract_data.jl")
 # Define equations and systems
-include(pwd() * "/symbolics/abstract_equations.jl")
-
+include("abstract_equations.jl")
 
 # Include Generic Evaluation Rules and Output Format
 for unary_operator in unary_operators

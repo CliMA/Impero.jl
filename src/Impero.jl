@@ -1,5 +1,7 @@
 module Impero
 
-greet() = print("Hello World!")
+using LinearAlgebra, SymbolicUtils
+
+include("abstract_core.jl")
 
 end # module
