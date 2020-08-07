@@ -1,0 +1,7 @@
+name = "Impero"
+uuid = "6b9fe585-d366-4829-9dfa-295221ce217c"
+authors = ["James Schloss <jrs.schloss@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+SymbolicUtils = "d1185830-fcd6-423d-90d6-eec64667417b"
