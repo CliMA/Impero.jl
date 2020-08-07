@@ -1,10 +1,18 @@
 
-using LinearAlgebra
 import LinearAlgebra: ×
+
+export AbstractDomain
+export AbstractBoundary
+export PredefinedBoundary
+export GeneralDomain
+export GeneralBoundary
+
+export DomainBoundary
+export IntervalDomain, ProductDomain, SphereSurfaceDomain
 
 abstract type AbstractDomain end
 abstract type AbstractBoundary end
-abstract type PredifinedDomain <: AbstractDomain end
+abstract type PredefinedBoundary <: AbstractDomain end
 
 struct GeneralDomain <: AbstractDomain end
 ∂(::GeneralDomain) = DomainBoundary(nothing)
@@ -13,9 +21,9 @@ struct DomainBoundary <: AbstractBoundary
     closure
 end
 
-struct GenralBoundary <: AbstractBoundary end
+struct GeneralBoundary <: AbstractBoundary end
 
-struct IntervalDomain{AT, BT, PT} <: PredifinedDomain
+struct IntervalDomain{AT, BT, PT} <: PredefinedBoundary
     a::AT
     b::BT
     periodic::PT
@@ -33,7 +41,7 @@ struct ProductDomain{DT} <: AbstractDomain
 end
 ×(args::AbstractDomain...) = ProductDomain{typeof(args)}(args)
 
-struct SphereSurfaceDomain{FT} <: PredifinedDomain
+struct SphereSurfaceDomain{FT} <: PredefinedBoundary
     r::FT
     SphereSurfaceDomain(r) = new{typeof(r)}(r)
 end

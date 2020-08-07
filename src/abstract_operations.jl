@@ -1,9 +1,42 @@
+
+export UnaryOperation, BinaryOperation, NaryOperation
+export AbstractOperation
+
+import Base: +, *, -, √, tanh, sin, cos, tan, ^, exp, convert, promote_rule
+
+# Unary Operators, (name, symbol)
+unary_operators = []
+push!(unary_operators, ["Negative", "-"])
+push!(unary_operators, ["SquareRoot", "√"])
+push!(unary_operators, ["Tanh", "tanh"])
+push!(unary_operators, ["Sin", "sin"])
+push!(unary_operators, ["Cos", "cos"])
+push!(unary_operators, ["Tan", "tan"])
+push!(unary_operators, ["Exp", "exp"])
+
+# Binary Operators, (name, symbol)
+binary_operators = []
+push!(binary_operators, ["Add", "+"])
+push!(binary_operators, ["Multiply", "*"])
+push!(binary_operators, ["Exponentiation", "^"])
+
+nary_operators = []
+push!(nary_operators, ["Sum", "+"])
+push!(nary_operators, ["Product", "*"])
+
+
+abstract type AbstractOperation <: AbstractExpression end
+abstract type UnaryOperation  <: AbstractOperation end
+abstract type BinaryOperation <: AbstractOperation end
+abstract type NaryOperation <: AbstractOperation end
+
 # Define Struct and Symbol Overload for Unary Operators
 for unary_operator in unary_operators
     b_name, b_symbol = Meta.parse.(unary_operator)
     @eval struct $b_name{𝒯} <: UnaryOperation
         term::𝒯
     end
+    # export $b_name
     @eval $b_symbol(a::AbstractExpression) = $b_name(a)
 end
 

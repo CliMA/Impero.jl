@@ -1,3 +1,9 @@
+
+export AbstractData
+export Data
+
+abstract type AbstractData <: AbstractExpression end
+
 struct Data{𝒯} <: AbstractData
     data::𝒯
 end
