@@ -4,6 +4,7 @@ import Base.show
 
 
 export AbstractExpression
+export unary_operators, binary_operators
 
 # Define abstract base type
 abstract type AbstractExpression end
