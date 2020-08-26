@@ -24,4 +24,5 @@ for binary_operator in [binary_operators..., ["Negative", "-"]]
 end
 
 # Define compute function
-compute(x::AbstractExpression) = eval(x).data
+# PROBLEM HERE
+# compute(x::AbstractExpression) = eval(x).data
