@@ -45,4 +45,3 @@ for binary_operator in binary_operators
     end
     @eval export $b_name
 end
-
