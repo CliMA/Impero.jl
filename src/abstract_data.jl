@@ -22,6 +22,3 @@ for binary_operator in [binary_operators..., ["Negative", "-"]]
     @eval $b_symbol(field1::AbstractData, field2::𝒮) where {𝒮  <: Number} = Data(broadcast($b_symbol,field1.data, field2))
     @eval $b_symbol(field1::𝒯, field2::AbstractData) where {𝒯 <: Number} = Data(broadcast($b_symbol, field1, field2.data))
 end
-
-# Define compute function
-compute(x::AbstractExpression) = eval(x).data
