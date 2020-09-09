@@ -12,13 +12,6 @@ function Base.show(io::IO, ∇::Gradient)
     printstyled(io, ")", color = color)
 end
 
-function Base.show(io::IO, ∇::Gradient) 
-    color = 220
-    printstyled(io, "∇(", color = color)
-    print(∇.operand)
-    printstyled(io, ")", color = color)
-end
-
 function Base.show(io::IO, ϕ::Field) 
     print(ϕ.data)
 end

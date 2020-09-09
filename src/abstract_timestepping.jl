@@ -18,12 +18,14 @@ struct Implicit{T,S} <: TimeDiscretization
     meta_data::S
 end
 
+Implicit() = Implicit(nothing, nothing)
+
 # Assumes seperation by addition should be okay since quadrature is a 
 # linear operation
 function get_implicit(a::Implicit)
     return a
 end
-function get_implicit(a::Explicit)
+function get_implicit(a)
     return Field(0) # probably need a rule like 0 + field = field
 end
 function get_implicit(a::Add)
@@ -52,6 +54,15 @@ end
 function get_explicit(a::Negative)
     t1 = get_explicit(a.term)
     return t1
+end
+
+function extract(a, b)
+    @assert b <: TimeDiscretization
+    if typeof(a) <: b
+        return a
+    else
+        return Field(0)
+    end
 end
 
 function get_implicit(eq::AbstractEquation)
