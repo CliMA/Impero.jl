@@ -14,6 +14,11 @@ include("abstract_fields.jl")
 include("abstract_data.jl")
 # Define equations and systems
 include("abstract_equations.jl")
+# Define timestepping abstractions
+include("abstract_timestepping.jl")
+# Define various utilities
+include("abstract_utils.jl")
+
 
 # compute function
 compute(a::AbstractExpression) = throw(error("compute not defined for $(typeof(a))"))
