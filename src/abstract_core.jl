@@ -1,4 +1,4 @@
-export unary_operators, binary_operators, compute
+export unary_operators, binary_operators, nary_operators, compute
 export AbstractExpression
 
 # Define abstract base type
@@ -18,7 +18,7 @@ include("abstract_equations.jl")
 # compute function
 compute(a::AbstractExpression) = throw(error("compute not defined for $(typeof(a))"))
 
-# Include Generic Evaluation Rules and Output Format
+# Include Generic Evaluation Rules and Output Format and Exports
 for unary_operator in unary_operators
     b_name, b_symbol = Meta.parse.(unary_operator)
     @eval compute(a::$b_name{𝒮}) where {𝒮} = $b_symbol(compute(a.term))
@@ -42,6 +42,19 @@ for binary_operator in binary_operators
         printstyled(io, $b_symbol, color = color )
         print(io,  operation.term2)
         printstyled(io, ")", color = color)
+    end
+    @eval export $b_name
+end
+
+for nary_operator in nary_operators
+    b_name, b_symbol = Meta.parse.(nary_operator)
+    @eval compute(a::$b_name{𝒮}) where {𝒮} = $b_symbol(compute.(a.terms)...)
+    @eval function Base.show(io::IO, operation::$b_name{𝒮}) where {𝒮}
+        print(io, $b_symbol, "(" )
+        for term in operation.terms
+            print(io, term, ",")
+        end
+        print(io, "0)")
     end
     @eval export $b_name
 end

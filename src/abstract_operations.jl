@@ -36,7 +36,6 @@ for unary_operator in unary_operators
     @eval struct $b_name{𝒯} <: UnaryOperation
         term::𝒯
     end
-    # export $b_name
     @eval $b_symbol(a::AbstractExpression) = $b_name(a)
 end
 
