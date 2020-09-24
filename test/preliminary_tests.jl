@@ -2,28 +2,12 @@ using Impero
 using Test
 import Impero:compute
 
-# Quick Structs for checking calculations
-struct Wrapper{T, S} <: AbstractExpression
-    data::T
-    meta_data::S
-end
-# Struct for MetaData
-struct MetaData{T}
-    io_name::T
-end
+# Import Wrapper and WrapperMetaData
+include(pwd() * "/test/test_utils.jl")
 
-function Base.show(io::IO, field::Wrapper{T, S}) where {T <: Char, S}
-    color = 230
-    printstyled(io, field.data, color = color)
-end
-function Base.show(io::IO, field::Wrapper{T, S}) where {T, S <: MetaData}
-    color = 230
-    printstyled(io, field.meta_data.io_name, color = color)
-end
-
-a = Wrapper(1, MetaData("a"))
-b = Wrapper(2, MetaData("b"))
-d = Wrapper(4, MetaData("d"))
+a = Wrapper(1, WrapperMetaData("a"))
+b = Wrapper(2, WrapperMetaData("b"))
+d = Wrapper(4, WrapperMetaData("d"))
 
 compute(a::Wrapper) = a.data
 
