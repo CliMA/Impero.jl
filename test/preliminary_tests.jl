@@ -13,7 +13,7 @@ compute(a::Wrapper) = a.data
 
 @testset "Impero operator matching" begin
 
-    println("for $a = ", a.data, ", $b = ", b.data, " $d = ", d.data)
+    println("for $a = ", a.data, ", $b = ", b.data, ", $d = ", d.data)
     for unary_operator in unary_operators
         b_name, b_symbol = Meta.parse.(unary_operator)
         @eval c = $b_symbol(a)
