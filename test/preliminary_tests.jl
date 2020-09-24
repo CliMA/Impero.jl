@@ -9,8 +9,6 @@ a = Wrapper(1, WrapperMetaData("a"))
 b = Wrapper(2, WrapperMetaData("b"))
 d = Wrapper(4, WrapperMetaData("d"))
 
-compute(a::Wrapper) = a.data
-
 @testset "Impero operator matching" begin
 
     println("for $a = ", a.data, ", $b = ", b.data, ", $d = ", d.data)

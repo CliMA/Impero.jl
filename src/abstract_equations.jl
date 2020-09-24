@@ -9,7 +9,8 @@ struct PDEEquation{TT <: AbstractExpression, ET <: AbstractExpression} <: Abstra
     lhs::TT
     rhs::ET
 end
-Base.:(==)(a::AbstractExpression, b::AbstractExpression) = PDEEquation(a, b)
+# can't use due to interaction with symbolic utils, need dispatch 
+# Base.:(==)(a::AbstractExpression, b::AbstractExpression) = PDEEquation(a, b)
 
 struct PDESystem{ET, DT, BCT, ICT, MD} <: AbstractSystem
     equations::ET

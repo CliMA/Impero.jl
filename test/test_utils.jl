@@ -16,3 +16,5 @@ function Base.show(io::IO, field::Wrapper{T, S}) where {T, S <: WrapperMetaData}
     color = 230
     printstyled(io, field.meta_data.io_name, color = color)
 end
+
+compute(a::Wrapper) = a.data

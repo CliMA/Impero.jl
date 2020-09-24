@@ -2,8 +2,6 @@ using SymbolicUtils
 import SymbolicUtils: Chain, Postwalk
 import SymbolicUtils: Sym, Term, istree, operation, arguments, to_symbolic, Fixpoint
 
-# include("abstract_operations.jl")
-
 for unary_operator in unary_operators
     b_name, b_symbol = Meta.parse.(unary_operator)
     @eval SymbolicUtils.istree(a::$b_name) = true
