@@ -1,6 +1,5 @@
 using Impero
 using Test
-import Impero:compute
 
 # Import Wrapper and WrapperMetaData
 include(pwd() * "/test/test_utils.jl")

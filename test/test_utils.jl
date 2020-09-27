@@ -1,4 +1,5 @@
 # Quick Structs for checking calculations
+import Impero:compute
 struct Wrapper{T, S} <: AbstractExpression
     data::T
     meta_data::S
