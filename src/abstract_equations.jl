@@ -5,14 +5,14 @@ export PDESystem, PDEEquation
 abstract type AbstractSystem end
 abstract type AbstractEquation end
 
-struct PDEEquation{TT <: AbstractExpression, ET <: AbstractExpression} <: AbstractEquation
+mutable struct PDEEquation{TT <: AbstractExpression, ET <: AbstractExpression} <: AbstractEquation
     lhs::TT
     rhs::ET
 end
 # can't use due to interaction with symbolic utils, need dispatch 
 # Base.:(==)(a::AbstractExpression, b::AbstractExpression) = PDEEquation(a, b)
 
-struct PDESystem{ET, DT, BCT, ICT, MD} <: AbstractSystem
+mutable struct PDESystem{ET, DT, BCT, ICT, MD} <: AbstractSystem
     equations::ET
     domain::DT
     bcs::BCT
