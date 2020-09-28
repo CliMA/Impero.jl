@@ -116,9 +116,9 @@ end
 
 macro pde_system(expr)
     system_name = expr.args[1]
-    system = expr_0.args[2].args
+    system = expr.args[2].args
     converted_system = [eval(_to_pde(equation)) for equation in system]
-    new_expr = :($(esc(system_name)) =  $converted_system)
+    new_expr = :($(esc(system_name)) =  $converted_system) #PDE system constructor
     return new_expr
 end
 
@@ -133,7 +133,7 @@ pde_1 = _to_pde(:(σ = ∂x(u)))
 pde1 = @to_pde σ = ∂x(u)
 
 #
-@pde_system pde_system = [
+@pde_system pde_system = (
     σ= ∂x(u),
     ∂t(u)= -∂x(u * u - ∂x(σ))
-]
+)
