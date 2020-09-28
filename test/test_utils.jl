@@ -56,7 +56,30 @@ macro wrapper(exprs...)
 end
 
 ## checking
-@wrapper a=1 b=2
+@wrapper a=1 b=1
 c = a+b
 typeof(c)
 compute(c)
+
+
+##
+
+struct MyCustom2
+    a
+    b
+    c
+end
+
+function MyCustom2(a; my_string = "0", other_thing = "0")
+    return MyCustom2(a, my_string, other_thing)
+end
+function MyCustom2()
+    return MyCustom2("default", "defualt", "default")
+end
+
+##
+a = 1
+function testing(b, a)
+    c = b + a
+    return c
+end

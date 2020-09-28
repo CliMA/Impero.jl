@@ -70,7 +70,7 @@ end
 include(pwd() * "/test/test_utils.jl")
 @wrapper u=1 σ=1
 
-function Base.show(io::IO, p::PDEEquation{S, T}) where {S, T}
+function Base.show(io::IO, p::PDEEquation) 
     print(io, p.lhs, "=", p.rhs)
 end
 
@@ -80,5 +80,60 @@ pde_system = [
 ]
 
 for pde in pde_system
-    println(pde_system)
+    println(pde)
 end
+
+
+##
+
+macro show_stuff(expr)
+    @show expr
+    return nothing
+end
+
+@show_stuff pde_system = [
+    PDEEquation(σ, ∂x(u)),
+    PDEEquation(∂t(u), -∂x(u * u - ∂x(σ)))
+]
+##
+expr_0 = :(pde_system = [σ = ∂x(u), ∂t(u)= -(∂x(u * u - ∂x(σ)))])
+expr = :(pde_system = [PDEEquation(σ, ∂x(u)), PDEEquation(∂t(u), -(∂x(u * u - ∂x(σ))))])
+
+for expr_system in expr.args[2].args
+    @show expr_system
+end
+
+function _to_pde(expr)
+    lhs = expr.args[1]
+    rhs = expr.args[2]
+    new_expr = :(PDEEquation($lhs, $rhs))
+    return new_expr
+end
+
+macro to_pde(expr)
+    return _to_pde(expr)
+end
+
+macro pde_system(expr)
+    system_name = expr.args[1]
+    system = expr_0.args[2].args
+    converted_system = [eval(_to_pde(equation)) for equation in system]
+    new_expr = :($(esc(system_name)) =  $converted_system)
+    return new_expr
+end
+
+#=
+@pde_system pde_system = [
+    PDEEquation(σ, ∂x(u)),
+    PDEEquation(∂t(u), -∂x(u * u - ∂x(σ)))
+]
+=#
+pde_1 = _to_pde(:(σ = ∂x(u)))
+
+pde1 = @to_pde σ = ∂x(u)
+
+#
+@pde_system pde_system = [
+    PDEEquation(σ, ∂x(u)),
+    PDEEquation(∂t(u), -∂x(u * u - ∂x(σ)))
+]

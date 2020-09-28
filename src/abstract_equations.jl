@@ -5,19 +5,19 @@ export PDESystem, PDEEquation
 abstract type AbstractSystem end
 abstract type AbstractEquation end
 
-mutable struct PDEEquation{TT <: AbstractExpression, ET <: AbstractExpression} <: AbstractEquation
-    lhs::TT
-    rhs::ET
+mutable struct PDEEquation <: AbstractEquation
+    lhs
+    rhs
 end
 # can't use due to interaction with symbolic utils, need dispatch 
 # Base.:(==)(a::AbstractExpression, b::AbstractExpression) = PDEEquation(a, b)
 
-mutable struct PDESystem{ET, DT, BCT, ICT, MD} <: AbstractSystem
-    equations::ET
-    domain::DT
-    bcs::BCT
-    initial_conditions::ICT
-    metadata::MD
+mutable struct PDESystem <: AbstractSystem
+    equations
+    domain
+    bcs
+    initial_conditions
+    metadata
 end
 
 function PDESystem(
