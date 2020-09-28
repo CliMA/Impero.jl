@@ -55,3 +55,8 @@ macro wrapper(exprs...)
     return Expr(:block, rewritten_exprs...)
 end
 
+## checking
+@wrapper a=1 b=2
+c = a+b
+typeof(c)
+compute(c)
