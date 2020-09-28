@@ -1,6 +1,6 @@
 
 export AbstractSystem, AbstractEquation
-export PDESystem
+export PDESystem, PDEEquation
 
 abstract type AbstractSystem end
 abstract type AbstractEquation end
