@@ -134,6 +134,6 @@ pde1 = @to_pde σ = ∂x(u)
 
 #
 @pde_system pde_system = [
-    PDEEquation(σ, ∂x(u)),
-    PDEEquation(∂t(u), -∂x(u * u - ∂x(σ)))
+    σ= ∂x(u),
+    ∂t(u)= -∂x(u * u - ∂x(σ))
 ]
