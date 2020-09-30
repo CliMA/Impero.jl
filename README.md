@@ -7,8 +7,8 @@ A symbolic language for equation specification.
 |----------------------|--------------------------------------------------|
 
 
-The design docs are at [design_docs]
+The design docs are at [design docs].
 
 [docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
 [docs-latest-url]: https://clima.github.io/Impero.jl/dev/
-[design_docs]: https://www.overleaf.com/read/nxcwchkmstqc
+[design docs]: https://www.overleaf.com/read/nxcwchkmstqc
