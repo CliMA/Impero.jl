@@ -1,31 +1,37 @@
-
 export AbstractSystem, AbstractEquation
-export PDESystem
+export Equation
+export @pde_system, @to_equation
 
 abstract type AbstractSystem end
 abstract type AbstractEquation end
 
-struct PDEEquation{TT <: AbstractExpression, ET <: AbstractExpression} <: AbstractEquation
-    lhs::TT
-    rhs::ET
-end
-# can't use due to interaction with symbolic utils, need dispatch 
-# Base.:(==)(a::AbstractExpression, b::AbstractExpression) = PDEEquation(a, b)
-
-struct PDESystem{ET, DT, BCT, ICT, MD} <: AbstractSystem
-    equations::ET
-    domain::DT
-    bcs::BCT
-    initial_conditions::ICT
-    metadata::MD
+mutable struct Equation <: AbstractEquation
+    lhs
+    rhs
 end
 
-function PDESystem(
-    equations,
-    domain;
-    bcs = nothing,
-    initial_condition = nothing,
-    metadata = nothing,
-)
-    return PDESystem(equations, domain, bcs, initial_condition, metadata)
+function _to_equation(expr)
+    lhs = expr.args[1]
+    rhs = expr.args[2]
+    new_expr = :(Equation($(esc(lhs)), $(esc(rhs))))
+    return new_expr
+end
+
+macro to_equation(expr)
+    return _to_equation(expr)
+end
+
+macro pde_system(expr)
+    for i in eachindex(expr.args[2].args)
+        arg = expr.args[2].args[i]
+        tmp = Expr(:call, :Equation, esc(arg.args[1]), esc(arg.args[2]))
+        expr.args[2].args[i] = tmp
+    end
+    expr.args[1]= esc(expr.args[1])
+    return expr
+end
+
+
+function Base.show(io::IO, p::Equation)
+    print(io, p.lhs, "=", p.rhs)
 end

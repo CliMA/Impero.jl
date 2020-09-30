@@ -1,6 +1,6 @@
 
 export UnaryOperation, BinaryOperation, NaryOperation
-export AbstractOperation
+export AbstractOperation, Gradient
 
 import Base: +, *, -, √, tanh, sin, cos, tan, ^, exp, convert, promote_rule
 
