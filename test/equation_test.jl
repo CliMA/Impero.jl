@@ -5,16 +5,17 @@ include(pwd() * "/test/test_utils.jl")
 
 @wrapper u=1 σ=1
 
-
-
 @testset "Impero Equation Specification" begin
     equ = @to_equation σ=u
-    @pde_system pde_system = [
-        σ = ∂x(u),
-        ∂t(u)= -∂x(u * u - ∂x(σ)),
-    ]
     @test equ.rhs == u
     @test equ.lhs == σ
+
+    @pde_system pde_system = [
+        σ = ∂x(u),
+        ∂t(u) = -∂x(u * u - ∂x(σ)),
+    ]
+    @test pde_system[1].lhs == σ
+    @test pde_system[2].lhs == ∂t(u)
     @test pde_system[1].rhs == ∂x(u)
     @test pde_system[2].rhs == -∂x(u * u - ∂x(σ))
 end
