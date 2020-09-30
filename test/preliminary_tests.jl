@@ -4,9 +4,7 @@ using Test
 # Import Wrapper and WrapperMetaData
 include(pwd() * "/test/test_utils.jl")
 
-a = Wrapper(1, WrapperMetaData("a"))
-b = Wrapper(2, WrapperMetaData("b"))
-d = Wrapper(4, WrapperMetaData("d"))
+@wrapper a=1 b=2 d=4
 
 @testset "Impero operator matching" begin
 

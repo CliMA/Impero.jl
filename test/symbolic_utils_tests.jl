@@ -4,11 +4,9 @@ using SymbolicUtils
 import SymbolicUtils: Chain, Postwalk
 import SymbolicUtils: Sym, Term, istree, operation, arguments, to_symbolic, Fixpoint
 
-# include(pwd() * "/src/symbolic_utils_hooks.jl")
 include(pwd() * "/test/test_utils.jl")
 
-a = Wrapper(1, WrapperMetaData("a"))
-b = Wrapper(2, WrapperMetaData("b"))
+@wrapper a=1 b=2
 
 @testset "symbolic utils swapping" begin
     println("for $a = ", a.data, ", $b = ", b.data)
