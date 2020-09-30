@@ -29,3 +29,13 @@ end
     rhs = (∂x(∂x(σ))+-(∂x((u*u))))
     @test pde_system[2].rhs == rhs
 end
+
+@testset "Impero Equation Augmentation" begin
+    @pde_system pde_system = [
+        σ = ∂x(u),
+        ∂t(u)= ∂x(∂x(σ)),
+    ]
+    push!(pde_system, @to_equation σ=u)
+    @test pde_system[3].lhs == σ
+    @test pde_system[3].rhs == u
+end
