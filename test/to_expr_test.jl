@@ -4,7 +4,6 @@ theme(:default)
 default(size=(500, 500))
 plot_flag = false
 
-include(pwd() * "/test/test_utils.jl")
 @wrapper α=1 β=1 ψ=1 ϕ=1
 
 @testset "Testing to_expr function" begin
