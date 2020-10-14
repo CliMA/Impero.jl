@@ -1,6 +1,6 @@
 using Impero, Test
 
-Impero.@wrapper u=1 σ=1
+@wrapper u=1 σ=1
 
 @testset "Impero Equation Specification" begin
     equ = @to_equation σ=u

@@ -1,7 +1,7 @@
 using Impero
 using Test
 
-Impero.@wrapper a=1 b=2 d=4
+@wrapper a=1 b=2 d=4
 
 @testset "Impero operator matching" begin
 

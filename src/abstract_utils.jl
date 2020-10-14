@@ -1,7 +1,7 @@
 # Quick Structs for checking calculations
 import Impero:compute
 
-export Wrapper, WrapperMetaData, wrapper, show
+export Wrapper, WrapperMetaData, wrapper, @wrapper, show
 export DirectionalDerivative, GradientMetaData, ∂x, ∂y, ∂z, ∂t
 
 struct Wrapper{T, S} <: AbstractExpression
