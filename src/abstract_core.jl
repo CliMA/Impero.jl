@@ -6,14 +6,21 @@ abstract type AbstractExpression end
 
 # Define Algebraic Operators
 include("abstract_operations.jl")
+
 # Define Domains
 include("abstract_domains.jl")
+
 # Define Fields
 include("abstract_fields.jl")
+
 # Define Data
 include("abstract_data.jl")
+
 # Define equations and systems
 include("abstract_equations.jl")
+
+# Define Wrapper functions and derivative utils
+include("abstract_utils.jl")
 
 # compute function
 compute(a::AbstractExpression) = throw(error("compute not defined for $(typeof(a))"))

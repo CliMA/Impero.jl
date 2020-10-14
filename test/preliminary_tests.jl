@@ -1,9 +1,7 @@
 using Impero
 using Test
 
-include(pwd() * "/test/test_utils.jl")
-
-@wrapper a=1 b=2 d=4
+Impero.@wrapper a=1 b=2 d=4
 
 @testset "Impero operator matching" begin
 

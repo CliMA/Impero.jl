@@ -1,9 +1,6 @@
 using Impero, Test
 
-# define wrappers and derivatives
-include(pwd() * "/test/test_utils.jl")
-
-@wrapper u=1 σ=1
+Impero.@wrapper u=1 σ=1
 
 @testset "Impero Equation Specification" begin
     equ = @to_equation σ=u

@@ -4,9 +4,7 @@ using SymbolicUtils
 import SymbolicUtils: Chain, Postwalk
 import SymbolicUtils: Sym, Term, istree, operation, arguments, to_symbolic, Fixpoint
 
-include(pwd() * "/test/test_utils.jl")
-
-@wrapper a=1 b=2
+Impero.@wrapper a=1 b=2
 
 @testset "symbolic utils swapping" begin
     println("for $a = ", a.data, ", $b = ", b.data)
