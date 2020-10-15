@@ -12,10 +12,13 @@ import SymbolicUtils: Chain, Postwalk, Fixpoint
 @wrapper a=1 b=2
 c = a+b
 r1 = @acrule ~ra + ~rb => ~ra * ~rb
-new_c = Fixpoint(Postwalk(Chain([r1])))(c)
+new_c = Fixpoint(Postwalk(Chain([r1])))(c);
 ```
 
 We can now check to see that this conversion happened succesfully
+```@example 2
+compute(c)
+```
 ```@example 2
 compute(new_c)
 ```
