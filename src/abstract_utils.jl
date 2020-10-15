@@ -2,8 +2,8 @@
 import Impero: compute
 import Impero: to_expr
 
-export Wrapper, WrapperMetaData, wrapper, @wrapper, show
-export DirectionalDerivative, GradientMetaData, ∂x, ∂y, ∂z, ∂t
+export Wrapper, WrapperMetaData, @wrapper
+export Operator, DerivativeMetaData, OperatorMetaData
 
 struct Wrapper{T, S} <: AbstractExpression
     data::T
@@ -45,26 +45,61 @@ macro wrapper(exprs...)
     return Expr(:block, rewritten_exprs...)
 end
 
-## Add directional derivatives
-struct DirectionalDerivative{𝒮} <: AbstractExpression
-    direction::𝒮
-end
-struct GradientMetaData{𝒮}
-    direction::𝒮
-end
-function (p::DirectionalDerivative)(expr::AbstractExpression)
-    return Gradient(expr, GradientMetaData(p.direction))
-end
-function Base.show(io::IO, p::DirectionalDerivative{S}) where S <: String
-    print(io, Char(0x02202) * p.direction)
-end
-function Base.show(io::IO, p::Gradient{S, T}) where {S, T <: GradientMetaData{String}}
-    printstyled(io, Char(0x02202) * p.metadata.direction, "(", color = 165)
-    print(io, p.operand)
-    printstyled(io, ")", color = 165)
+## Add Operators
+struct Operator{𝒮, 𝒯} <: AbstractExpression
+    operand::𝒮
+    metadata::𝒯
 end
 
-∂x = DirectionalDerivative("x")
-∂y = DirectionalDerivative("y")
-∂z = DirectionalDerivative("z")
-∂t = DirectionalDerivative("t")
+function (o::Operator)(expr::AbstractExpression)
+    return Operator(expr, o.metadata)
+end
+
+function compute(o::Operator)
+    return o.metadata.operation(compute(o.operand))
+end
+
+function compute(o::Operator{𝒮, 𝒯}) where 
+    {𝒮 <: Nothing, 𝒯}
+    return compute(o.metadata)
+end
+
+struct DerivativeMetaData{𝒪, 𝒟}
+    operation::𝒪
+    direction::𝒟
+end
+
+function Base.show(io::IO, o::Operator{S,T}) where
+    {S <: Nothing, T <: DerivativeMetaData}
+    name = Char(0x02202) * o.metadata.direction
+    printstyled(io, name, color = 14 )
+end
+
+function Base.show(io::IO, o::Operator{S,T}) where 
+    {S <: AbstractExpression, T <: DerivativeMetaData}
+    name = Char(0x02202) * o.metadata.direction
+    printstyled(io, name, "(",  color = 14 )
+    print(o.operand)
+    printstyled(io, ")",  color = 14 )
+end
+
+struct OperatorMetaData{𝒪, 𝒩}
+    operation::𝒪
+    name::𝒩
+end
+
+function Base.show(io::IO, o::Operator{S,T}) where
+    {S <: Nothing, T <: OperatorMetaData}
+    name = o.metadata.name
+    printstyled(io, name, color = 14 )
+end
+
+function Base.show(io::IO, o::Operator{S,T}) where 
+    {S <: AbstractExpression, T <: OperatorMetaData}
+    name = o.metadata.name
+    printstyled(io, name, "(",  color = 14 )
+    print(o.operand)
+    printstyled(io, ")",  color = 14 )
+end
+
+to_expr(t::Operator) = Expr(:call, t, to_expr(t.operand))

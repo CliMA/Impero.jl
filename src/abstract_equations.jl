@@ -35,3 +35,5 @@ end
 function Base.show(io::IO, p::Equation)
     print(io, p.lhs, "=", p.rhs)
 end
+
+to_expr(eq::Equation) = Expr(:(=), to_expr(eq.lhs), to_expr(eq.rhs))
