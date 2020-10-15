@@ -1,5 +1,6 @@
 # Quick Structs for checking calculations
-import Impero:compute
+import Impero: compute
+import Impero: to_expr
 
 export Wrapper, WrapperMetaData, wrapper, @wrapper, show
 export DirectionalDerivative, GradientMetaData, ∂x, ∂y, ∂z, ∂t
@@ -12,6 +13,8 @@ end
 struct WrapperMetaData{T}
     io_name::T
 end
+
+to_expr(a::Wrapper) = :($a)
 
 function Base.show(io::IO, field::Wrapper{T, S}) where {T <: Char, S}
     color = 230
@@ -33,7 +36,7 @@ function _wrapper(expr::Expr)
     symb = expr.args[1]
     val  = expr.args[2]
     string_symb = String(symb)
-    new_expr = :($(esc(symb)) =  Wrapper($val, WrapperMetaData($string_symb)))
+    new_expr = :($(esc(symb)) =  Wrapper($(esc(val)), WrapperMetaData($string_symb)))
     return new_expr
 end
 
