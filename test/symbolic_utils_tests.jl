@@ -1,8 +1,7 @@
 using Impero
 using Test
 using SymbolicUtils
-import SymbolicUtils: Chain, Postwalk
-import SymbolicUtils: Sym, Term, istree, operation, arguments, to_symbolic, Fixpoint
+import SymbolicUtils: Chain, Postwalk, Fixpoint
 
 @wrapper a=1 b=2
 

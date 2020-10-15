@@ -1,7 +1,10 @@
 using Impero, Test
 
 @wrapper u=1 σ=1
-
+∂x = Operator(nothing, DerivativeMetaData(nothing, "x"))
+∂y = Operator(nothing, DerivativeMetaData(nothing, "y"))
+∂z = Operator(nothing, DerivativeMetaData(nothing, "z"))
+∂t = Operator(nothing, DerivativeMetaData(nothing, "t"))
 @testset "Impero Equation Specification" begin
     equ = @to_equation σ=u
     @test equ.rhs == u
