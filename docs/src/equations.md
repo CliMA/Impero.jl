@@ -27,6 +27,6 @@ plot(p1)
 ```
 and
 ```@example equations
-plot(p2)
+plot(p2, size = (1000,1000))
 ```
 
