@@ -7,7 +7,7 @@ we take an expression that was originally a "+" operation and convert it
 to a "*" operation
 
 ```@example 2
-using Impero, SymbolicUtils, Plots
+using Impero, SymbolicUtils, Plots, GraphRecipes
 import SymbolicUtils: Chain, Postwalk, Fixpoint
 @wrapper a=1 b=2
 c = a+b

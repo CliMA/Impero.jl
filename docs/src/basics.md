@@ -16,9 +16,7 @@ We can even plot it
 ```@example 1
 c = a+b
 plot(c)
-savefig("simple_tree.svg"); nothing # hide
 ```
-![](simple_tree.svg)
 and compute values with it
 ```@example 1
 compute(c)
