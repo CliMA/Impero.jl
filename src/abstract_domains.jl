@@ -1,12 +1,12 @@
 using Printf
-import Base: getindex, *, dims
+import Base: getindex, *, ndims
 import LinearAlgebra: ×
 
 abstract type AbstractDomain end
 abstract type AbstractBoundary end
 
 export Interval, Circle
-export info, dims
+export info, ndims
 export ×
 
 struct DomainBoundary <: AbstractBoundary
@@ -56,11 +56,11 @@ function Base.show(io::IO, Ω::ProductDomain)
     end
  end
 
-function dims(Ω::IntervalDomain)
+function ndims(Ω::IntervalDomain)
     return 1
 end
 
-function dims(Ω::ProductDomain)
+function ndims(Ω::ProductDomain)
     return length(Ω.domains)
 end
 
@@ -76,7 +76,7 @@ end
 *(args::AbstractDomain) = ProductDomain(args...)
 
 function info(Ω::ProductDomain)
-    println("This is a ", dims(Ω),"-dimensional tensor product domain.")
+    println("This is a ", ndims(Ω),"-dimensional tensor product domain.")
     print("The domain is ")
     println(Ω, ".")
     for (i,domain) in enumerate(Ω.domains)
@@ -94,8 +94,8 @@ function check_full_periodicity(Ω::ProductDomain)
 end
 
 function periodicity_function(Ω::ProductDomain)
-    periodicity = ones(Bool, dims(Ω))
-    for i in 1:dims(Ω)
+    periodicity = ones(Bool, ndims(Ω))
+    for i in 1:ndims(Ω)
         periodicity[i] = Ω[i].periodic
     end
     return Tuple(periodicity)

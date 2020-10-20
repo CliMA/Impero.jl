@@ -8,7 +8,7 @@ t1 = Ω * Interval(-1,1)
 info(Ω)
 
 @testset "domain tests" begin
-    @test dims(Ω) == 2
-    @test dims(t1) == 3
+    @test ndims(Ω) == 2
+    @test ndims(t1) == 3
     @test Ω.domains[1] == Ω[1]
 end
