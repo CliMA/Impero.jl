@@ -6,6 +6,7 @@ abstract type AbstractDomain end
 abstract type AbstractBoundary end
 
 export Interval, Circle
+export IntervalDomain, ProductDomain, AbstractDomain
 export info, ndims
 export ×
 
