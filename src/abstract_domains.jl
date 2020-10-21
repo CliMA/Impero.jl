@@ -7,7 +7,7 @@ abstract type AbstractBoundary end
 
 export Interval, Circle
 export IntervalDomain, ProductDomain, AbstractDomain
-export info, ndims
+export info, ndims, periodicity_function
 export ×
 
 struct DomainBoundary <: AbstractBoundary
