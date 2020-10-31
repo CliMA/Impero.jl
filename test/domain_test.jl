@@ -66,7 +66,9 @@ function futureconstructor(Ω)
     end
     return splitb
 end
-newΩ = Ω×Ω
+##
+Ω = Interval(-1,1) × Circle(0, 2π) × Interval(0,4)
+newΩ = Ω
 boundaries = futureconstructor(newΩ);
 for i in eachindex(boundaries)
     for j in eachindex(newΩ.domains)
