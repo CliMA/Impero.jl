@@ -35,7 +35,7 @@ end
 import Impero: ndims
 import Base: show
 function Base.show(io::IO, o::PointBoundary)
-    print("{",o.point,"}")
+    printstyled("{",o.point,"}", color = 201)
 end
 
 ndims(p::PointBoundary) = 0
@@ -66,7 +66,15 @@ function futureconstructor(Ω)
     end
     return splitb
 end
-boundaries = futureconstructor(Ω);
+newΩ = Ω×Ω
+boundaries = futureconstructor(newΩ);
 for i in eachindex(boundaries)
-    println(boundaries[i][1], "×",boundaries[i][2])
+    for j in eachindex(newΩ.domains)
+        if j < length(newΩ.domains)
+            print(boundaries[i][j], "×")
+        else
+            print(boundaries[i][j])
+        end
+    end
+    println()
 end
