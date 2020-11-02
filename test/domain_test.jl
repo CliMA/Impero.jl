@@ -80,3 +80,19 @@ for i in eachindex(boundaries)
     end
     println()
 end
+
+function compute_print_boundaries(Ω)
+    newΩ = Ω
+    boundaries = futureconstructor(newΩ);
+    for i in eachindex(boundaries)
+        for j in eachindex(newΩ.domains)
+            if j < length(newΩ.domains)
+                print(boundaries[i][j], "×")
+            else
+                print(boundaries[i][j])
+            end
+        end
+        println()
+    end
+    return nothing
+end
