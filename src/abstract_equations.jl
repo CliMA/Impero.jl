@@ -1,6 +1,6 @@
 export AbstractSystem, AbstractEquation
 export Equation
-export @pde_system, @to_equation
+export @system, @to_equation
 
 abstract type AbstractSystem end
 abstract type AbstractEquation end
@@ -21,7 +21,7 @@ macro to_equation(expr)
     return _to_equation(expr)
 end
 
-macro pde_system(expr)
+macro system(expr)
     for i in eachindex(expr.args[2].args)
         arg = expr.args[2].args[i]
         tmp = Expr(:call, :Equation, esc(arg.args[1]), esc(arg.args[2]))
