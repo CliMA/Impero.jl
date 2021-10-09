@@ -3,7 +3,7 @@ export UnaryOperation, BinaryOperation, NaryOperation
 export AbstractOperation, Gradient
 export to_expr
 
-import Base: +, *, -, √, tanh, sin, cos, tan, ^, exp, convert, promote_rule
+import Base: +, *, -, √, /, tanh, sin, cos, tan, ^, exp, convert, promote_rule
 
 # Unary Operators, (name, symbol)
 unary_operators = []
@@ -19,6 +19,7 @@ push!(unary_operators, ["Exp", "exp"])
 binary_operators = []
 push!(binary_operators, ["Add", "+"])
 push!(binary_operators, ["Multiply", "*"])
+push!(binary_operators, ["Divide", "/"])
 push!(binary_operators, ["Exponentiation", "^"])
 
 nary_operators = []
@@ -60,12 +61,15 @@ for nary_operator in nary_operators
     n_name, n_symbol = Meta.parse.(nary_operator)
 
     # Defining the struct, along with outer constructor
-    @eval struct $n_name{a} <: NaryOperation
-        terms::Vector{a}
+    @eval struct $n_name{q} <: NaryOperation
+        terms::Vector{q}
     end
 
     # Linking the defined symbol to a cuntion that creates the struct
-    @eval $n_symbol(a::Vector{AbstractExpression}) = $n_name(a...)
+    @eval $n_symbol(a::Vector{T} where T <: AbstractExpression) = $n_name([a...])
+
+    # This should be defining Sum -> +(term1, term2, ... termN)
+    @eval to_expr(a::$n_name) = Expr(:call, $n_symbol, to_expr(a.terms...))
 end
 
 # Special Structs

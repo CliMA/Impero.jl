@@ -58,10 +58,11 @@ for nary_operator in nary_operators
     @eval compute(a::$b_name{𝒮}) where {𝒮} = $b_symbol(compute.(a.terms)...)
     @eval function Base.show(io::IO, operation::$b_name{𝒮}) where {𝒮}
         print(io, $b_symbol, "(" )
-        for term in operation.terms
-            print(io, term, ",")
+        print(io, operation.terms[1])
+        for i = 2:length(operation.terms)
+            print(io, ",", operation.terms[i])
         end
-        print(io, "0)")
+        print(io, ")")
     end
     @eval export $b_name
 end
